@@ -31,7 +31,8 @@
 
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('admin_users') }}" class="text-orange-700 font-semibold hover:text-black">Dashboard</a>
+                    <a href="{{ path('admin_users') }}" class="text-orange-700 font-semibold hover:text-black">Utilisateurs</a>
+                    <a href="{{ path('admin_purchases') }}" class="text-orange-700 font-semibold hover:text-black">Achats</a>
                 {% endif %}
                 {% if is_granted('ROLE_CLIENT') %}
                     <a href="{{ path('app_subscribe') }}" class="text-gray-700 hover:text-black">Abonnement</a>
