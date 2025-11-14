@@ -9,12 +9,6 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Liste des articles</h1>
-
-    <ul>
-        {% for post in posts %}
-            <li>{{ post.title }}</li>
-        {% endfor %}
-    </ul>
+    <h1>Hello {% if app.user %} {{ app.user.name }} {% endif %}! </h1>
 </div>
 {% endblock %}

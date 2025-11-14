@@ -1,0 +1,52 @@
+.card {
+    @apply bg-white rounded-xl shadow-md p-6;
+}
+
+.card-header {
+    @apply text-xl font-semibold mb-4 text-gray-800;
+}
+
+.card-body {
+    @apply space-y-4;
+}
+
+.card-footer {
+    @apply mt-6 flex justify-end;
+}
+
+.form-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md
+    focus:outline-none focus:ring-2 focus:ring-indigo-500
+    focus:border-indigo-500 transition;
+}
+
+.form-group {
+    @apply mb-4;
+}
+
+.btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md
+    font-medium transition text-white bg-indigo-600
+    hover:bg-indigo-700;
+}
+
+.btn-secondary {
+    @apply px-4 py-2 rounded-md bg-gray-200 text-gray-700
+    hover:bg-gray-300 transition;
+}
+
+.form-container {
+    @apply bg-white p-6 rounded-xl shadow-lg max-w-lg w-full mx-auto;
+}
+
+.form-error {
+    @apply text-sm text-red-600 mt-1;
+}
+
+.alert-error {
+    @apply bg-red-100 text-red-700 p-3 rounded-md mb-4 text-sm;
+}
+
+.alert-success {
+    @apply bg-green-100 text-green-700 p-3 rounded-md mb-4 text-sm;
+}
