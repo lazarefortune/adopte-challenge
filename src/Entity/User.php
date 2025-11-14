@@ -48,6 +48,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Purchase::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $purchases;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $remotePaymentId = null;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
@@ -204,6 +207,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getRemotePaymentId(): ?int
+    {
+        return $this->remotePaymentId;
+    }
+
+    public function setRemotePaymentId(?int $id): self
+    {
+        $this->remotePaymentId = $id;
         return $this;
     }
 }

@@ -16,28 +16,33 @@ class PurchaseRepository extends ServiceEntityRepository
         parent::__construct($registry, Purchase::class);
     }
 
-    //    /**
-    //     * @return Purchase[] Returns an array of Purchase objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findAllForAdminList(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.amount', 'p.transactionId', 'p.createdAt')
+            ->addSelect('u.email AS userEmail')
+            ->addSelect('t.name AS subscriptionName')
+            ->join('p.user', 'u')
+            ->leftJoin('p.subscription', 's')
+            ->leftJoin('s.subscriptionType', 't')
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getArrayResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Purchase
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findUserPurchases(int $userId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.id', 'p.amount', 'p.transactionId', 'p.createdAt')
+            ->addSelect('t.name AS subscriptionName')
+            ->leftJoin('p.subscription', 's')
+            ->leftJoin('s.subscriptionType', 't')
+            ->where('p.user = :uid')
+            ->setParameter('uid', $userId)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+
 }

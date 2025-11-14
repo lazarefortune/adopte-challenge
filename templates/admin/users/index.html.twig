@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="min-h-screen flex justify-center">
+        <div class="px-6 py-10">
+            <h1 class="text-3xl font-semibold mb-6">Liste des utilisateurs</h1>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Nom</th>
+                        <th class="px-4 py-2 text-left">Email</th>
+                        <th class="px-4 py-2 text-left">Remote ID</th>
+                        <th class="px-4 py-2 text-left">Abonnements</th>
+                        <th class="px-4 py-2 text-left">Achats</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for user in users %}
+                        <tr class="border-t">
+                            <td class="px-4 py-2">{{ user.name }}</td>
+                            <td class="px-4 py-2">{{ user.email }}</td>
+                            <td class="px-4 py-2">
+                                {{ user.remotePaymentId ?? '—' }}
+                            </td>
+                            <td class="px-4 py-2">
+                                {{ user.subscriptionsCount }}
+                            </td>
+                            <td>
+                                {{ user.purchasesCount }}
+                            </td>
+                            <td class="px-4 py-2 text-right">
+                                <a href="{{ path('admin_user_detail', { id: user.id }) }}" class="text-blue-600">Voir</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="px-4 py-4 text-center text-gray-500" colspan="6">
+                                Aucun utilisateur enregistré.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

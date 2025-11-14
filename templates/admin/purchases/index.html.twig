@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="min-h-screen flex justify-center">
+    <div class="px-6 py-10">
+        <h1 class="text-3xl font-semibold mb-6">Historique des achats</h1>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full border border-gray-200 rounded-lg">
+                <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-4 py-2 text-left">Utilisateur</th>
+                    <th class="px-4 py-2 text-left">Abonnement</th>
+                    <th class="px-4 py-2 text-left">Montant</th>
+                    <th class="px-4 py-2 text-left">Transaction ID</th>
+                    <th class="px-4 py-2 text-left">Date</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for p in purchases %}
+                    <tr class="border-t">
+                        <td class="px-4 py-2">{{ p.userEmail }}</td>
+                        <td class="px-4 py-2">{{ p.subscriptionName ?? '—' }}</td>
+                        <td class="px-4 py-2">{{ p.amount }} €</td>
+                        <td class="px-4 py-2">{{ p.transactionId }}</td>
+                        <td class="px-4 py-2">
+                            {{ p.createdAt|date('d/m/Y H:i') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-gray-500 px-4 py-6">
+                            Aucun achat enregistré.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

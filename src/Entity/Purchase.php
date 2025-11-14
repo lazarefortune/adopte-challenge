@@ -23,6 +23,10 @@ class Purchase
     #[ORM\Column(length: 255)]
     private ?string $transactionId = null;
 
+    #[ORM\ManyToOne(inversedBy: 'purchases')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Subscription $subscription = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -78,4 +82,16 @@ class Purchase
 
         return $this;
     }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): static
+    {
+        $this->subscription = $subscription;
+        return $this;
+    }
+
 }

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="min-h-screen flex items-center justify-center px-4">
+        <div class="card w-full max-w-lg">
+
+            <div class="card-header">
+                <h1 class="text-3xl font-semibold">Mettre à jour la carte</h1>
+            </div>
+
+            {{ form_start(form, {
+                attr: {
+                    class: 'card-body flex flex-col gap-4',
+                    'data-turbo': 'false'
+                }
+            }) }}
+
+            <div class="form-group">
+                {{ form_label(form.card_number, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.card_number, {'attr': {'class': 'form-input'}}) }}
+                {{ form_errors(form.card_number) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.cvv, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.cvv, {'attr': {'class': 'form-input'}}) }}
+                {{ form_errors(form.cvv) }}
+            </div>
+
+            <button class="btn w-full">Mettre à jour</button>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+{% endblock %}

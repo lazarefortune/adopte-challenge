@@ -33,6 +33,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findAllForAdminList(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.id', 'u.email', 'u.name', 'u.remotePaymentId')
+            ->addSelect('(SELECT COUNT(s.id) FROM App\Entity\Subscription s WHERE s.user = u.id) AS subscriptionsCount')
+            ->addSelect('(SELECT COUNT(p.id) FROM App\Entity\Purchase p WHERE p.user = u.id) AS purchasesCount')
+            ->where('u.roles LIKE :client')
+            ->andWhere('u.roles NOT LIKE :admin')
+            ->setParameter('client', '%ROLE_CLIENT%')
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->orderBy('u.name', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */
@@ -57,4 +73,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findUserInfo(int $id): ?array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.id', 'u.email', 'u.name', 'u.remotePaymentId')
+            ->addSelect('(SELECT COUNT(s.id) FROM App\Entity\Subscription s WHERE s.user = u.id) AS subscriptionsCount')
+            ->addSelect('(SELECT COUNT(p.id) FROM App\Entity\Purchase p WHERE p.user = u.id) AS purchasesCount')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }
