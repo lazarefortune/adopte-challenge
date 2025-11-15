@@ -49,7 +49,7 @@ class SubscriptionsRenewCommand extends Command
                 $type->getPrice()
             );
 
-            if (!$transaction || !isset($transaction['transaction_id'])) {
+            if (!$transaction || !isset($transaction['data'])) {
                 $sub->setIsActive(false);
                 continue;
             }
@@ -58,7 +58,7 @@ class SubscriptionsRenewCommand extends Command
             $purchase->setUser($user);
             $purchase->setSubscription($sub);
             $purchase->setAmount($type->getPrice());
-            $purchase->setTransactionId($transaction['transaction_id']);
+            $purchase->setTransactionId($transaction['data']);
             $purchase->setCreatedAt(new \DateTimeImmutable());
 
             $this->em->persist($purchase);
